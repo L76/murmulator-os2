@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
+#include "../src/sys_table.h"
 
 #define _vTaskDelayPtrIdx 2
 #define _xTaskDelayUntilPtrIdx 3
