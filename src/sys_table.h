@@ -2,4 +2,4 @@
 ///#define __in_boota(group) __attribute__((section(".boota" group)))
 #define __in_hfa(group) __attribute__((section(".high_flash" group)))
 
-extern unsigned long __in_systable() __aligned(4096) sys_table_ptrs[];
+extern unsigned long __in_systable() __attribute__ ((aligned (4096))) sys_table_ptrs[];
