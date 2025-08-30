@@ -474,7 +474,7 @@ static uint8_t* __time_critical_func(dma_handler_VGA_impl)() {
         output_buffer_16bit += graphics_buffer_shift_x * 2 / div_factor;
     }
     int width = MIN((visible_line_size - ((graphics_buffer_shift_x > 0) ? (graphics_buffer_shift_x) : 0)), max_width);
-    if (width < 0) return; // TODO: detect a case
+    if (width < 0) return 0; // TODO: detect a case
     // TODO: Упростить
     uint16_t* current_palette = &palette[0];
     uint8_t* output_buffer_8bit = (uint8_t *)output_buffer_16bit;
