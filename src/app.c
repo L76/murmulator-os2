@@ -794,11 +794,11 @@ bool __in_hfa() load_app(cmd_ctx_t* ctx) {
     if(try_to_use_flash && !lst) {
         lst = new_list_v(0, 0, 0);
     }
-    bootb_ctx->bootb[0] = load_sec2mem_wrapper(pctx, req_idx, try_to_use_flash);
-    bootb_ctx->bootb[1] = load_sec2mem_wrapper(pctx, _init_idx, try_to_use_flash);
-    bootb_ctx->bootb[2] = load_sec2mem_wrapper(pctx, main_idx, try_to_use_flash);
-    bootb_ctx->bootb[3] = load_sec2mem_wrapper(pctx, _fini_idx, try_to_use_flash);
-    bootb_ctx->bootb[4] = load_sec2mem_wrapper(pctx, sig_idx, try_to_use_flash);
+    bootb_ctx->bootb[0] = (bootb_ptr_t) load_sec2mem_wrapper(pctx, req_idx, try_to_use_flash);
+    bootb_ctx->bootb[1] = (bootb_ptr_t) load_sec2mem_wrapper(pctx, _init_idx, try_to_use_flash);
+    bootb_ctx->bootb[2] = (bootb_ptr_t) load_sec2mem_wrapper(pctx, main_idx, try_to_use_flash);
+    bootb_ctx->bootb[3] = (bootb_ptr_t) load_sec2mem_wrapper(pctx, _fini_idx, try_to_use_flash);
+    bootb_ctx->bootb[4] = (bootb_ptr_t) load_sec2mem_wrapper(pctx, sig_idx, try_to_use_flash);
     if(try_to_use_flash) {
         node_t* n = lst->first;
         uint32_t min_addr = 0xFFFFFFFF;
