@@ -17,10 +17,12 @@ set(PICO_BOARD pico2 CACHE STRING "Board type")
 cmake_minimum_required(VERSION 3.22)
 include(pico_sdk_import.cmake)
 
-project(murmulator-os-apps-mem C CXX ASM)
+project(mem C CXX ASM)
 pico_sdk_init()
 
 SET(BUILD_NAME "${PROJECT_NAME}")
+
+message(PROJECT_NAME="${PROJECT_NAME}")
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
@@ -47,20 +49,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../../freertos_config
 )
 
-configure_file(memmap.ld.in memmap.ld @ONLY)
-pico_set_linker_script(${PROJECT_NAME} ${CMAKE_CURRENT_BINARY_DIR}/memmap.ld)
-
+#configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../small_memmap.ld.in ${CMAKE_CURRENT_SOURCE_DIR}/memmap.ld @ONLY)
 pico_set_program_name(${PROJECT_NAME} "Murmulator OS Applications: mem")
 pico_set_program_version(${PROJECT_NAME} "test")
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-#    pico_runtime
-#    pico_stdlib
-)
-
-#family_configure_device_example(${PROJECT_NAME} noos)
-# -fPIC -shared
-target_link_options(${PROJECT_NAME} PRIVATE -Xlinker --print-memory-usage)
+target_link_options(${PROJECT_NAME} PRIVATE -Xlinker --print-memory-usage -r -T${CMAKE_CURRENT_SOURCE_DIR}/../small_memmap.ld -nostdlib -nostartfiles)
 target_include_directories(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/../../api
@@ -79,16 +72,18 @@ target_compile_options(${PROJECT_NAME} PUBLIC
         -Wno-error=implicit-fallthrough=
         -Wno-error=stringop-truncation
         -Wno-error=restrict
-        -w
+        -Wno-error=int-conversion
+        -Wno-error=implicit-function-declaration
+        -Wno-error=incompatible-pointer-types
+        -Wno-error=return-mismatch
+        -Wno-error=implicit-int
 )
 endif ()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE)
-
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${BUILD_NAME}")
 
 pico_enable_stdio_uart(${PROJECT_NAME} 0)
 pico_enable_stdio_usb(${PROJECT_NAME} 0)
 
-pico_add_extra_outputs(${PROJECT_NAME})
