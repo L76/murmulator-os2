@@ -440,7 +440,7 @@ inline static void __in_hfa() tokenize_cmd(list_t* lst, string_t* pcmd, cmd_ctx_
         string_clip(pcmd, 0);
     }
     if (!pcmd->size) {
-        return 0;
+        return;
     }
     bool in_space = false;
     int inTokenN = 0;
