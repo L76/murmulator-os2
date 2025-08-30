@@ -1,6 +1,5 @@
 #include "vga.h"
 #include <stdbool.h>
-#include <string.h>
 #include <stdio.h>
 #include "ram_page.h"
 #include "FreeRTOS.h"
