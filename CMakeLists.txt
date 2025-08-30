@@ -165,6 +165,9 @@ target_compile_options(${PROJECT_NAME} PUBLIC
         -Wno-error=implicit-fallthrough=
         -Wno-error=stringop-truncation
         -Wno-error=restrict
+        -Wno-error=int-conversion
+        -Wno-error=incompatible-pointer-types
+        -Wno-error=implicit-function-declaration
         -w
 )
 endif ()
