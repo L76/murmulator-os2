@@ -168,6 +168,7 @@ target_compile_options(${PROJECT_NAME} PUBLIC
         -Wno-error=int-conversion
         -Wno-error=incompatible-pointer-types
         -Wno-error=implicit-function-declaration
+        -Wno-error=implicit-int
         -w
 )
 endif ()
