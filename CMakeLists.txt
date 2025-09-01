@@ -33,20 +33,22 @@ option(SOFTTV "Enable TV soft composite output" OFF)
 option(HID "Enable HID devices (USB drive is unsupported in this mode)" OFF)
 
 #set(MURM20 ON)
-#set(BUTTER_PSRAM_GPIO 47)
 
 #set(HID ON)
 #set(VGA ON)
 set(VGAHDMI ON)
-set(TFT ON)
+#set(TFT ON)
+#set(CPU_MHZ 252)
+#set(CPU_MHZ 352)
 #set(CPU_MHZ 366)
 set(CPU_MHZ 378)
+#set(CPU_MHZ 424)
 
 set(FLASH_SIZE 16384)
 set(FIRMWARE_OFFSET 64)
 
 if(NOT MOS_VERSION)
-set(MOS_VERSION "2.1.0")
+set(MOS_VERSION "2.1.3")
 endif ()
 
 if(MURM20)
@@ -174,9 +176,6 @@ target_compile_options(${PROJECT_NAME} PUBLIC
 endif ()
 
 #target_compile_definitions(${PROJECT_NAME} PRIVATE DEBUG_VGA=1)
-if(BUTTER_PSRAM_GPIO)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE BUTTER_PSRAM_GPIO=${BUTTER_PSRAM_GPIO})
-endif()
 
 if (MURM20)
     target_compile_definitions(${PROJECT_NAME} PRIVATE
@@ -357,10 +356,6 @@ if (HID)
     SET(BUILD_NAME "${BUILD_NAME}-HID-${MOS_VERSION}-${CPU_MHZ}MHz")
 else()
     SET(BUILD_NAME "${BUILD_NAME}-${MOS_VERSION}-${CPU_MHZ}MHz")
-endif()
-
-if (BUTTER_PSRAM_GPIO)
-    SET(BUILD_NAME "${BUILD_NAME}-GP${BUTTER_PSRAM_GPIO}")
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${BUILD_NAME}")
